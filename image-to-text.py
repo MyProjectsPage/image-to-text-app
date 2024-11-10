@@ -21,13 +21,14 @@ import os
 import base64
 import cv2
 import numpy as np
-import fitz  # PyMuPDF
+#import fitz  # PyMuPDF
+import pymupdf
 
 
 
 # Function to process the PDF and return a list of (filename, file data) tuples
 def process_pdf(file):
-    pdf_document = fitz.open(stream=file.read(), filetype="pdf")    
+    pdf_document = pymupdf.open(stream=file.read(), filetype="pdf")    
     saved_files = []
     filenames = []  # List to store (filename, file_data) for each page
     num_pages = len(pdf_document)
@@ -39,7 +40,7 @@ def process_pdf(file):
         # st.write(f"Processing page {page_num + 1}...")
         try:
             page = pdf_document.load_page(page_num)
-            pix = page.get_pixmap(colorspace=fitz.csRGB, alpha=False)  # Get the entire page as an RGB pixmap with no alpha channel
+            pix = page.get_pixmap(colorspace=pymupdf.csRGB, alpha=False)  # Get the entire page as an RGB pixmap with no alpha channel
             
             # Convert the pixmap to a PIL Image
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
@@ -49,7 +50,7 @@ def process_pdf(file):
             
 
             # Create a new PDF document and insert just the single page
-            new_pdf = fitz.open()  # Create a new PDF
+            new_pdf = pymupdf.open()  # Create a new PDF
             new_pdf.insert_pdf(pdf_document, from_page=page_num, to_page=page_num)  # Add the single page
 
             # Use in-memory bytes buffer to store PDF instead of saving to disk
