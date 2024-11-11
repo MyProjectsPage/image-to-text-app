@@ -354,7 +354,7 @@ def main():
     
     if uploaded_file is not None:
 
-        binary_data = pdf_file.getvalue()
+        binary_data = uploaded_file.getvalue()
         base64_pdf = base64.b64encode(binary_data).decode('utf-8')
 
         # Embed PDF in HTML
