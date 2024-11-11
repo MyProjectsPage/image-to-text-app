@@ -45,6 +45,8 @@ import cv2
 import numpy as np
 #import fitz  # PyMuPDF
 import pymupdf
+from streamlit_pdf_viewer import pdf_viewer
+
 
 
 
@@ -355,22 +357,10 @@ def main():
     
     if uploaded_file is not None:
 
-        # #binary_data = uploaded_file.getvalue()
-        # #base64_pdf = base64.b64encode(binary_data).decode('utf-8')
-        # base64_pdf = convert_pdf_to_base64(uploaded_file)
+        binary_data = uploaded_file.getvalue()
+        pdf_viewer(input=binary_data,
+                   width=700)
 
-        # st.markdown(
-        # f"""
-        # <div style="display: flex; justify-content: center;">
-        #     <embed src="data:application/pdf;base64,{base64_pdf}" 
-        #     width="1000" height="1000" type="application/pdf">
-        # </div>
-        # """,
-        # unsafe_allow_html=True
-        # )
-        
-
-        
 
 
 
