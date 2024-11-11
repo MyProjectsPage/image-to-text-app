@@ -369,17 +369,19 @@ def main():
             zip_file = create_zip(uploaded_file, saved_files, num_pages)
             
            
-            # Convert PDF to base64 and display it
-            uploaded_file.seek(0)
-            base64_pdf = convert_pdf_to_base64(uploaded_file)
+            
             
             # Set up the two-column layout
             col1, col2 = st.columns([7, 3])  # Ratio 70% : 30%
 
             # Display the PDF in the left column
             with col1:
-                binary_data = uploaded_file.getvalue() # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
-                pdf_viewer(input=binary_data, width=1000) #, rendering= 'legacy_iframe ')
+                binary_data = uploaded_file.getvalue() 
+                pdf_viewer(input=binary_data, width=800) #, rendering= 'legacy_iframe ')
+
+                # Convert PDF to base64 and display it
+                uploaded_file.seek(0)
+                base64_pdf = convert_pdf_to_base64(uploaded_file)
                 display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
 
             # Display extracted digits in the right column
