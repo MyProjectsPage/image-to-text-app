@@ -347,7 +347,8 @@ def main():
 
     
     setup_ui()
-               
+
+                   
     # File uploader
     uploaded_file = st.file_uploader("Upload the consolidated PDF file containing Delivery Orders' Scanned Images to split into seperate files. Each file will be named with the Delivery Order number in the scanned image:", type="pdf")
     show_expander()
@@ -356,17 +357,17 @@ def main():
 
         #binary_data = uploaded_file.getvalue()
         #base64_pdf = base64.b64encode(binary_data).decode('utf-8')
-        # base64_pdf = convert_pdf_to_base64(uploaded_file)
+        base64_pdf = convert_pdf_to_base64(uploaded_file)
 
-        # st.markdown(
-        # f"""
-        # <div style="display: flex; justify-content: center;">
-        #     <embed src="data:application/pdf;base64,{base64_pdf}" 
-        #     width="1000" height="1000" type="application/pdf">
-        # </div>
-        # """,
-        # unsafe_allow_html=True
-        # )
+        st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center;">
+            <embed src="data:application/pdf;base64,{base64_pdf}" 
+            width="1000" height="1000" type="application/pdf">
+        </div>
+        """,
+        unsafe_allow_html=True
+        )
         
 
         
