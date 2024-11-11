@@ -12,6 +12,27 @@
 #####################################################################################
 
 
+#####################################################################################
+# To  address pytesseract not in PATH when DEPLOYING ON THE WEB:  
+# https://discuss.streamlit.io/t/how-to-extract-characters-from-the-image-using-googles-tesseract-and-print-them-on-the-streamlit-application/17514/2
+# The installation instructions for pytesseract say that Google’s tesseract-ocr is a dependency. Meaning, you need to install tesseract-ocr as an apt-get dependency (for Linux applications outside the Python environment).
+#
+# The way to do that is to include the necessary dependencies in a packages.txt file in your repo:
+#
+# Create a new packages.txt file with the following lines:
+#
+# tesseract-ocr
+# tesseract-ocr-por
+# The first line installs the base tesseract-ocr application and supports only English by default. To support Portuguese, you need to install a language specific tesseract data file, which we do in the second line.
+#
+# Reboot your app
+#
+# Once you make the above changes, your app should successfully deploy! :tada:
+#####################################################################################
+
+
+
+
 import streamlit as st
 from PIL import Image, ImageEnhance
 import pytesseract
