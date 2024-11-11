@@ -376,10 +376,12 @@ def main():
 
             # Display the PDF in the left column
             with col1:
-                binary_data = uploaded_file.getvalue() 
-                pdf_viewer(input=binary_data, width=800) #, rendering= 'legacy_iframe ')
-
                 # Convert PDF to base64 and display it
+                
+                binary_data = uploaded_file.getvalue() 
+                pdf_viewer(input=binary_data, width=800) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
+
+                # FOR PREVIEW ON WINDOWS
                 uploaded_file.seek(0)
                 base64_pdf = convert_pdf_to_base64(uploaded_file)
                 display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
