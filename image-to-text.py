@@ -14,7 +14,8 @@
 
 import streamlit as st
 from PIL import Image, ImageEnhance
-import pytesseract
+#import pytesseract
+import helpers.tesseract as pytesseract
 import io
 import zipfile
 import os
