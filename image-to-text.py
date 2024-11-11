@@ -355,7 +355,8 @@ def main():
     if uploaded_file is not None:
 
         binary_data = uploaded_file.getvalue()
-        base64_pdf = base64.b64encode(binary_data).decode('utf-8')
+        #base64_pdf = base64.b64encode(binary_data).decode('utf-8')
+        base64_pdf = convert_pdf_to_base64(uploaded_file)
 
         st.markdown(
         f"""
