@@ -357,12 +357,18 @@ def main():
         binary_data = uploaded_file.getvalue()
         base64_pdf = base64.b64encode(binary_data).decode('utf-8')
 
-        # Embed PDF in HTML
-        pdf_display = (F'<iframe src="data:application/pdf;base64,{base64_pdf}" '
-                        F'width="100%" height="1000" type="application/pdf"></iframe>')
+        st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center;">
+            <embed src="data:application/pdf;base64,{base64_pdf}" 
+            width="1000" height="1000" type="application/pdf">
+        </div>
+        """,
+        unsafe_allow_html=True
+        )
+        
 
-        # Display file
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        
 
 
 
