@@ -380,10 +380,9 @@ def main():
 
             # Display the PDF in the left column
             with col1:
-                binary_data = uploaded_file.getvalue() # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
-                legacy_embed(input=binary_data)
-                #pdf_viewer(input=binary_data, width=1000, rendering= 'legacy_iframe')
-                display_pdf(base64_pdf)
+                binary_data = uploaded_file.getvalue() 
+                pdf_viewer(input=binary_data, width=1000) #, rendering= 'legacy_iframe')
+                display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
 
             # Display extracted digits in the right column
             with col2:
