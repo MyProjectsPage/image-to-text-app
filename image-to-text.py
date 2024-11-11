@@ -284,15 +284,7 @@ def display_pdf(base64_pdf):
         unsafe_allow_html=True
     )
 
-    #binary_data = pdf_file.getvalue()
-    #base64_pdf = base64.b64encode(binary_data).decode('utf-8')
-
-    # Embed PDF in HTML
-    pdf_display = (F'<iframe src="data:application/pdf;base64,{base64_pdf}" '
-                    F'width="100%" height="1000" type="application/pdf"></iframe>')
-
-    # Display file
-    st.markdown(pdf_display, unsafe_allow_html=True)
+    
 
 
 
@@ -361,6 +353,20 @@ def main():
     show_expander()
     
     if uploaded_file is not None:
+
+        binary_data = pdf_file.getvalue()
+        base64_pdf = base64.b64encode(binary_data).decode('utf-8')
+
+        # Embed PDF in HTML
+        pdf_display = (F'<iframe src="data:application/pdf;base64,{base64_pdf}" '
+                        F'width="100%" height="1000" type="application/pdf"></iframe>')
+
+        # Display file
+        st.markdown(pdf_display, unsafe_allow_html=True)
+
+
+
+
 
         # Process the PDF and get saved files in memory
         saved_files, num_pages, filenames = process_pdf(uploaded_file)
