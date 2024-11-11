@@ -46,6 +46,8 @@ import numpy as np
 #import fitz  # PyMuPDF
 import pymupdf
 from streamlit_pdf_viewer import pdf_viewer
+from streamlit_pdf_viewer import legacy_embed
+
 
 
 
@@ -379,7 +381,8 @@ def main():
             # Display the PDF in the left column
             with col1:
                 binary_data = uploaded_file.getvalue() # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
-                pdf_viewer(input=binary_data, width=1000, rendering= 'legacy_iframe')
+                legacy_embed(input=binary_data)
+                #pdf_viewer(input=binary_data, width=1000, rendering= 'legacy_iframe')
                 display_pdf(base64_pdf)
 
             # Display extracted digits in the right column
