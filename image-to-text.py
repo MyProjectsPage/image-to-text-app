@@ -12,6 +12,7 @@
 #####################################################################################
 
 
+
 #####################################################################################
 # To  address pytesseract not in PATH when DEPLOYING ON THE WEB:  
 # https://discuss.streamlit.io/t/how-to-extract-characters-from-the-image-using-googles-tesseract-and-print-them-on-the-streamlit-application/17514/2
