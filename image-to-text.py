@@ -357,15 +357,6 @@ def main():
     
     if uploaded_file is not None:
 
-        binary_data = uploaded_file.getvalue()
-        pdf_viewer(input=binary_data,
-                   width=700)
-
-
-
-
-
-
         # Process the PDF and get saved files in memory
         saved_files, num_pages, filenames = process_pdf(uploaded_file)
         
@@ -388,6 +379,8 @@ def main():
             # Display the PDF in the left column
             with col1:
                 display_pdf(base64_pdf)
+                binary_data = uploaded_file.getvalue()
+                pdf_viewer(input=binary_data)
 
             # Display extracted digits in the right column
             with col2:
