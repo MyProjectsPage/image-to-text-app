@@ -378,9 +378,9 @@ def main():
 
             # Display the PDF in the left column
             with col1:
-                display_pdf(base64_pdf)
                 binary_data = uploaded_file.getvalue()
                 pdf_viewer(input=binary_data, width=350)
+                display_pdf(base64_pdf)
 
             # Display extracted digits in the right column
             with col2:
