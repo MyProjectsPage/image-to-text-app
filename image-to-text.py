@@ -376,15 +376,19 @@ def main():
 
             # Display the PDF in the left column
             with col1:
-                # Convert PDF to base64 and display it
-                
-                binary_data = uploaded_file.getvalue() 
-                pdf_viewer(input=binary_data, width=800) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
 
+                # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                 # FOR PREVIEW ON WINDOWS
-                uploaded_file.seek(0)
-                base64_pdf = convert_pdf_to_base64(uploaded_file)
-                display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                if os.name == 'nt':
+                    uploaded_file.seek(0)
+                    base64_pdf = convert_pdf_to_base64(uploaded_file)
+                    display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                else:
+                    # Convert PDF to base64 and display it
+                    binary_data = uploaded_file.getvalue() 
+                    st.write('Displaying first 15 pages:')
+                    pdf_viewer(input=binary_data, width=800, pages_to_render = 15) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
+
 
             # Display extracted digits in the right column
             with col2:
