@@ -386,7 +386,7 @@ def main():
                 else:
                     # Convert PDF to base64 and display it
                     binary_data = uploaded_file.getvalue() 
-                    st.write('Displaying first 15 pages:')
+                    st.write('Displaying up to first 15 pages:')
                     pdf_viewer(input=binary_data, width=800, pages_to_render=list(range(1, 16))) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
                     
 
