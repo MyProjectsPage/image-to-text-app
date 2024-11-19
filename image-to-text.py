@@ -388,7 +388,7 @@ def main():
                     binary_data = uploaded_file.getvalue() 
                     st.write('Displaying first 15 pages:')
                     #pdf_viewer(input=binary_data, width=800, pages_to_render = 1) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
-                    pdf_viewer(input=binary_data, width=800) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
+                    pdf_viewer(input=binary_data, width=800, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
 
 
             # Display extracted digits in the right column
