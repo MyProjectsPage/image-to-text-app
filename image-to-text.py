@@ -394,7 +394,15 @@ def main():
                     
                     test = True
                     if test == True:
-                        pass
+                        pdf_data = uploaded_file.read()
+
+                        # Add an expander to preview the PDF
+                        with st.expander("📄 Preview PDF", expanded=True):
+                            pdf_viewer(
+                                pdf_data,
+                                height=400,  # Set the height for better viewing
+                                width=600,   # Set the width for better viewing
+                            )
                     else:
                         # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                         # FOR PREVIEW ON WINDOWS
