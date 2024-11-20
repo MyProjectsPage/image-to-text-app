@@ -28,3 +28,6 @@ Key Challenges:
 To Address Those Challenges:
 1- I've used various filters in order to find the best quality. Filters include pure black & white, greyscale, etc.
 2- Several error detection and correction techniques to ensure that the right pattern is being captured.
+
+THERE'S A SAMPLE FILE FOR TESTING THE APP. CLICK ON THIS THIS WHEN OPENING THE WEBPAGE:
+Click Here To Open The [ABOUT] Section & To A Sample File For Trying The App!
