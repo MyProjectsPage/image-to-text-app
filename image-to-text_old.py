@@ -54,6 +54,11 @@ import numpy as np
 import pymupdf
 from streamlit_pdf_viewer import pdf_viewer
 
+#from utils import helpers
+#from io import BytesIO
+#from pypdf import PdfReader
+
+
 
 
 
@@ -62,31 +67,27 @@ from streamlit_pdf_viewer import pdf_viewer
 
 # Function to process the PDF and return a list of (filename, file data) tuples
 def process_pdf(file):
-    
     pdf_document = pymupdf.open(stream=file.read(), filetype="pdf")    
     saved_files = []
     filenames = []  # List to store (filename, file_data) for each page
     num_pages = len(pdf_document)
     #st.write(f"Total pages in document: {num_pages}")
-    
+   
 
     # Process each page
     for page_num in range(num_pages):
         # st.write(f"Processing page {page_num + 1}...")
-       
         try:
-            
             page = pdf_document.load_page(page_num)
             pix = page.get_pixmap(colorspace=pymupdf.csRGB, alpha=False)  # Get the entire page as an RGB pixmap with no alpha channel
             
             # Convert the pixmap to a PIL Image
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
 
-             
             # Extract digits-only text from the image
-            extracted_text = extract_text_from_image(img, page_num)      
-            if extracted_text == '': extracted_text = 'Page ' + str(page_num)
+            extracted_text = extract_text_from_image(img, page_num)
             
+
             # Create a new PDF document and insert just the single page
             new_pdf = pymupdf.open()  # Create a new PDF
             new_pdf.insert_pdf(pdf_document, from_page=page_num, to_page=page_num)  # Add the single page
@@ -126,11 +127,11 @@ def extract_text_from_image(img, page_num):
         lower_red = np.array([0, 120, 70])
         upper_red = np.array([10, 255, 255])
         mask1 = cv2.inRange(hsv, lower_red, upper_red)
-       
+
         lower_red = np.array([170, 120, 70])
         upper_red = np.array([180, 255, 255])
         mask2 = cv2.inRange(hsv, lower_red, upper_red)
-        
+
         # Combine masks for red color
         red_mask = mask1 | mask2
 
@@ -139,7 +140,7 @@ def extract_text_from_image(img, page_num):
 
         # Initialize a bounding box for all red text
         x_min, y_min, x_max, y_max = open_cv_image.shape[1], open_cv_image.shape[0], 0, 0
-        
+
         # Loop over contours to find the extreme bounding coordinates
         for contour in contours:
             x, y, w, h = cv2.boundingRect(contour)
@@ -147,25 +148,20 @@ def extract_text_from_image(img, page_num):
             x_max, y_max = max(x_max, x + w), max(y_max, y + h)
 
         # Define padding for the box
-        
         xpadding, ypadding = 25, 5
         x_min, y_min = max(0, x_min - xpadding), max(0, y_min - ypadding)
         x_max, y_max = min(open_cv_image.shape[1], x_max + xpadding), min(open_cv_image.shape[0], y_max + ypadding)
-        
+
         # Crop to the bounding box with padding
         cropped_image = open_cv_image[y_min:y_max, x_min:x_max]
         
-        
         # Use pytesseract to extract text from the cropped image
-        try:
-            extracted_text = pytesseract.image_to_string(cropped_image) 
-            extracted_text = extracted_text.strip()
-            if debug:
-                st.image(cropped_image, caption='')
-                st.write('Raw Text: ' + extracted_text)
-                st.write(f"Cropped image size: {cropped_image.size}")
-        except:
-            extracted_text = '' # Can't detect numbers box 
+        extracted_text = pytesseract.image_to_string(cropped_image)
+        extracted_text = extracted_text.strip()
+        
+        if debug:
+            st.image(cropped_image, caption='')
+            st.write('Raw Text: ' + extracted_text)
         
         return extracted_text, cropped_image
 
@@ -174,30 +170,26 @@ def extract_text_from_image(img, page_num):
 
         # If extracted_text is empty, apply different enhancement techniques
         
-        try:
-            # Convert to grayscale
-            grayscale_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
-            
-            
-            # Technique 1: Apply GaussianBlur to reduce noise
-            blurred_image = cv2.GaussianBlur(grayscale_image, (5, 5), 0)
-            extracted_text = pytesseract.image_to_string(blurred_image)
-            
-            # Technique 2: Apply adaptive thresholding for high contrast
-            if not extracted_text.strip():
-                threshold_image = cv2.adaptiveThreshold(
-                    grayscale_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                    cv2.THRESH_BINARY, 11, 2
-                )
-                extracted_text = pytesseract.image_to_string(threshold_image)
-            
-            # Technique 3: Sharpen the image to enhance text
-            if not extracted_text.strip():
-                kernel = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
-                sharpened_image = cv2.filter2D(grayscale_image, -1, kernel)
-                extracted_text = pytesseract.image_to_string(sharpened_image)
-        except:
-            extracted_text = ''  # Could not identify the text or the image is not a deliver order so it can't detect the box area to extract numbers from.
+        # Convert to grayscale
+        grayscale_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
+        
+        # Technique 1: Apply GaussianBlur to reduce noise
+        blurred_image = cv2.GaussianBlur(grayscale_image, (5, 5), 0)
+        extracted_text = pytesseract.image_to_string(blurred_image)
+        
+        # Technique 2: Apply adaptive thresholding for high contrast
+        if not extracted_text.strip():
+            threshold_image = cv2.adaptiveThreshold(
+                grayscale_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                cv2.THRESH_BINARY, 11, 2
+            )
+            extracted_text = pytesseract.image_to_string(threshold_image)
+        
+        # Technique 3: Sharpen the image to enhance text
+        if not extracted_text.strip():
+            kernel = np.array([[0, -1, 0], [-1, 5,-1], [0, -1, 0]])
+            sharpened_image = cv2.filter2D(grayscale_image, -1, kernel)
+            extracted_text = pytesseract.image_to_string(sharpened_image)
         
         return extracted_text
 
@@ -301,7 +293,7 @@ def setup_ui():
         
    
 # Function to display the PDF
-def display_pdf_old(base64_pdf):
+def display_pdf(base64_pdf):
     st.markdown(
         f"""
         <div style="display: flex; justify-content: center;">
@@ -311,24 +303,6 @@ def display_pdf_old(base64_pdf):
         """,
         unsafe_allow_html=True
     )
-
-
-import streamlit as st
-import base64
-
-def display_pdf(base64_pdf):
-    # Option 1: Use st.download_button
-    st.download_button(
-        label="Download PDF",
-        data=base64.b64decode(base64_pdf),
-        file_name="document.pdf",
-        mime="application/pdf"
-    )
-    
-    # Option 2: Use iframe with base64
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="1000" height="1000" type="application/pdf"></iframe>'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-
 
 
 def show_expander():
@@ -392,8 +366,10 @@ def main():
     # File uploader
     uploaded_file = st.file_uploader("Upload the consolidated PDF file containing Delivery Orders' Scanned Images to split into seperate files. Each file will be named with the Delivery Order number in the scanned image:", type="pdf")
     show_expander()
+   
     
     if uploaded_file is not None:
+      
 
         # Process the PDF and get saved files in memory
         saved_files, num_pages, filenames = process_pdf(uploaded_file)
@@ -406,34 +382,61 @@ def main():
         if saved_files:
             zip_file = create_zip(uploaded_file, saved_files, num_pages)
             
+           
+            
+            
             # Set up the two-column layout
             col1, col2 = st.columns([7, 3])  # Ratio 70% : 30%
 
             # Display the PDF in the left column
             with col1:
                 
-                uploaded_file.seek(0)
-                base64_pdf = convert_pdf_to_base64(uploaded_file)
-                
-                with st.expander("📄 Preview PDF", expanded=True):
-                    # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
-                    # FOR PREVIEW ON WINDOWS
-                    if True: # os.name == 'nt':
-                        uploaded_file.seek(0)
-                        base64_pdf = convert_pdf_to_base64(uploaded_file)                      
-                        display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                with st.expander("Preview PDF", expanded=True):
+                    test = False
+                    if test == True:
+                        
+                        if uploaded_file:
+                            # Read the uploaded file
+                            st.write(f"File Name: {uploaded_file.name}")
+                            st.write(f"File Type: {uploaded_file.type}")
+                            pdf_data = uploaded_file.read()
+                            st.write(f"File size: {len(pdf_data)} bytes")
+                            st.write(f"File type: {type(pdf_data)}")
+                            st.write(pdf_data[:100])  # Show the first 100 bytes (to confirm it's non-empty)
+                            uploaded_file.seek(0)  # Reset the file cursor to the beginning
+
+                            # Add an expander to preview the PDF
+                            pdf_viewer(
+                                pdf_data,
+                                height=400,  # Set the height for better viewing
+                                width=600,   # Set the width for better viewing
+                            )
                     else:
-                        # Convert PDF to base64 and display it
-                        binary_data = uploaded_file.getvalue() 
-                        pdf_viewer(input=binary_data, height=1000, width=1180) #, pages_to_render=list(range(1, 16)))  # FOR PREVIEW ON THE WEB
-                    
+                        # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
+                        # FOR PREVIEW ON WINDOWS
+                        if os.name == 'nt':
+                            uploaded_file.seek(0)
+                            base64_pdf = convert_pdf_to_base64(uploaded_file)
+                            st.components.v1.html(
+                            f"""
+                            <embed src="data:application/pdf;base64,{base64_pdf}" 
+                            width="1000" height="1000" type="application/pdf">
+                            """,
+                            height=1000,
+                            )    
+                            display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                        else:
+                            # Convert PDF to base64 and display it
+                            binary_data = uploaded_file.getvalue() 
+                            st.write('Displaying up to first 15 pages:')
+                            pdf_viewer(input=binary_data, width=800, pages_to_render=list(range(1, 16))) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
+                        
 
             # Display extracted digits in the right column
             with col2:
                  # Provide a  button for the ZIP file
                 
-                
-                with st.expander("✅ Progress Report", expanded=True):
+                with st.expander('Progress Report', expanded=True):
                     st.write(f"Total pages in document: {num_pages}")
 
 
@@ -443,11 +446,8 @@ def main():
                         file_name=zip_filename,
                         mime="application/zip"
                     )
-            
-                    for filename in filenames: 
-                        icon = '✅ '
-                        if 'page' in filename.lower().split(':')[-1]: icon = ''
-                        st.write(icon + filename)
+                
+                    for filename in filenames: st.write(filename)
                     
 
         else:
