@@ -389,7 +389,7 @@ def main():
             # Display the PDF in the left column
             with col1:
                 
-                with st.expander('Preview', expanded=True):
+                with st.expander('Preview'):
                     
                     test = True
                     if test == True:
