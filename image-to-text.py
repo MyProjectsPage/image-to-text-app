@@ -54,6 +54,11 @@ import numpy as np
 import pymupdf
 from streamlit_pdf_viewer import pdf_viewer
 
+from utils import helpers
+from io import BytesIO
+from pypdf import PdfReader
+
+
 
 
 
@@ -384,13 +389,18 @@ def main():
             # Display the PDF in the left column
             with col1:
                 
-                with st.expander('Preview'):
+                with st.expander('Preview', expanded=True):
                     
                     test = False
                     if test == True:
-                        uploaded_file.seek(0)
-                        base64_pdf = convert_pdf_to_base64(uploaded_file)
-                        st.components.v1.iframe(f"data:application/pdf;base64,{base64_pdf}", width=1000, height=1000)
+                        pdf_data = uploaded_file.read()
+                        # Add an expander to preview the PDF
+                        with st.expander("📄 Preview PDF", expanded=True):
+                            pdf_viewer(
+                                pdf_data,
+                                height=400,  # Set the height for better viewing
+                                width=1000,   # Set the width for better viewing
+                            )
                     else:
                         # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                         # FOR PREVIEW ON WINDOWS
@@ -418,7 +428,7 @@ def main():
             with col2:
                  # Provide a  button for the ZIP file
                 
-                with st.expander('Progress Report'):
+                with st.expander('Progress Report', expanded=True):
                     st.write(f"Total pages in document: {num_pages}")
 
 
