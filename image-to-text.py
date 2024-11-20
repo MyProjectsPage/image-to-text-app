@@ -16,6 +16,10 @@
 # REQUIRMENTS.TXT IS A MUST FOR WEB DEPLOYMENT. CMD Command: pipreqs . --force
 #####################################################################################
 
+#####################################################################################
+# THE .streamlit/config.toml is to enforce a dark theme
+#####################################################################################
+
 
 #####################################################################################
 # To  address pytesseract not in PATH when DEPLOYING ON THE WEB:  
@@ -247,11 +251,13 @@ def create_zip(uploaded_file, files, num_pages):
     zip_buffer.seek(0)  # Reset buffer to start
     return zip_buffer
 
+
 # Function to convert PDF to base64
 def convert_pdf_to_base64(pdf_file):
     pdf_bytes = pdf_file.read()
     encoded_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
     return encoded_pdf
+
 
 # Function to set up the UI
 def setup_ui():
@@ -281,11 +287,7 @@ def setup_ui():
         unsafe_allow_html=True
     )
         
-
    
-
-
-
 # Function to display the PDF
 def display_pdf(base64_pdf):
     st.markdown(
@@ -297,12 +299,6 @@ def display_pdf(base64_pdf):
         """,
         unsafe_allow_html=True
     )
-
-    
-
-
-
-
 
 
 def show_expander():
