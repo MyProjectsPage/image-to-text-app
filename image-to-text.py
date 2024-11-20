@@ -391,14 +391,14 @@ def main():
                 
                 with st.expander('Preview', expanded=True):
                     
-                    test = False
+                    test = True
                     if test == True:
                         pdf_data = uploaded_file.read()
                         # Add an expander to preview the PDF
                         with st.expander("📄 Preview PDF", expanded=True):
                             pdf_viewer(
                                 pdf_data,
-                                height=200,  # Set the height for better viewing
+                                height=50,  # Set the height for better viewing
                                 width=1000,   # Set the width for better viewing
                             )
                     else:
