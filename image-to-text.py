@@ -387,7 +387,7 @@ def main():
                 uploaded_file.seek(0)
                 base64_pdf = convert_pdf_to_base64(uploaded_file)
 
-                st.iframe(f"data:application/pdf;base64,{base64_pdf}", width=1000, height=1000)
+                st.components.v1.iframe(f"data:application/pdf;base64,{base64_pdf}", width=1000, height=1000)
 
                 
                 a = 0
