@@ -407,7 +407,7 @@ def main():
                 with st.expander("📄 Preview PDF", expanded=True):
                     # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                     # FOR PREVIEW ON WINDOWS
-                    if True: # os.name == 'nt':
+                    if os.name == 'nt':
                         uploaded_file.seek(0)
                         base64_pdf = convert_pdf_to_base64(uploaded_file)                      
                         display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
