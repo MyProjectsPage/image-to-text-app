@@ -396,7 +396,7 @@ def main():
                 )    
                 
                 a = 0
-                if a = 1:
+                if a == 1:
                     # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                     # FOR PREVIEW ON WINDOWS
                     if os.name == 'nt':
