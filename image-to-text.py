@@ -391,19 +391,19 @@ def main():
                 
 
                 # Check if a file is uploaded
-                        if uploaded_file:
-                            # Read the uploaded file
-                            pdf_data = uploaded_file.read()
+                if uploaded_file:
+                    # Read the uploaded file
+                    pdf_data = uploaded_file.read()
 
-                            # Add an expander to preview the PDF
-                            with st.expander("📄 Preview PDF", expanded=True):
-                                pdf_viewer(
-                                    pdf_data,
-                                    height=400,  # Set the height for better viewing
-                                    width=600,   # Set the width for better viewing
-                                )
+                    # Add an expander to preview the PDF
+                    with st.expander("📄 Preview PDF", expanded=True):
+                        pdf_viewer(
+                            pdf_data,
+                            height=400,  # Set the height for better viewing
+                            width=600,   # Set the width for better viewing
+                        )
 
-                                
+
                 with st.expander('Preview'):
                     
                     test = True
