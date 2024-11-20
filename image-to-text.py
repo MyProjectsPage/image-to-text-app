@@ -264,8 +264,9 @@ def setup_ui():
         .stApp {
             background-image: url("https://img.freepik.com/free-vector/abstract-wave-element-design-blue-curve-light-lines-background-digital-frequency-track-equalizer-generative-ai_1423-11938.jpg");
             background-attachment: fixed;
-            background-size: cover
             color: white; /* Default text color */
+            background-size: cover
+            
         }
         .reportview-container {
             background: rgba(0,0,0,0.5);
