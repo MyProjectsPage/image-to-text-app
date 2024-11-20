@@ -390,6 +390,14 @@ def main():
             with col1:
                 
 
+                import streamlit as st
+                from streamlit_pdf_viewer import pdf_viewer
+
+                st.title("PDF Viewer")
+
+                # Upload PDF
+                uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+
                 # Check if a file is uploaded
                 if uploaded_file:
                     # Read the uploaded file
@@ -402,6 +410,7 @@ def main():
                             height=400,  # Set the height for better viewing
                             width=600,   # Set the width for better viewing
                         )
+
 
 
                 with st.expander('Preview'):
