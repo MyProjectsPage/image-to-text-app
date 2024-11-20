@@ -8,9 +8,13 @@
 # EVERY EXCEPT / PASS COMMAND IS TP ALLOW THE APP TO WORK ON BOTH WINDOWS AND WEB
 # CASE DOESN'T MATTER ON WINDOWS BUT IT MATTERS ON WEB. MAKE SURE FILE NAMES ARE
 # HAVING A CONSISTENT CASE (PREFERABLY LOWERCASE)
-# REQUIRMENTS.TXT IS A MUST FOR WEB DEPLOYMENT. CMD Command: pipreqs . --force
 #####################################################################################
 
+
+
+#####################################################################################
+# REQUIRMENTS.TXT IS A MUST FOR WEB DEPLOYMENT. CMD Command: pipreqs . --force
+#####################################################################################
 
 
 #####################################################################################
@@ -265,6 +269,7 @@ def setup_ui():
         }
         .reportview-container {
             background: rgba(0,0,0,0.5);
+            color: red; /* Default text color */
         }
         .sidebar .sidebar-content {
             background: rgba(0,0,0,0.5);
