@@ -55,6 +55,8 @@ from streamlit_pdf_viewer import pdf_viewer
 
 
 
+
+
 # Function to process the PDF and return a list of (filename, file data) tuples
 def process_pdf(file):
     pdf_document = pymupdf.open(stream=file.read(), filetype="pdf")    
@@ -257,7 +259,6 @@ def setup_ui():
     st.set_page_config(page_title=title, layout="wide", page_icon=":file_folder:")
     st.markdown('<h1 style="color: limegreen;">' + title + '</h1>', unsafe_allow_html=True)
 
-    
     # Add background image
     st.markdown(
         """
@@ -279,8 +280,9 @@ def setup_ui():
         """,
         unsafe_allow_html=True
     )
+        
 
-    
+   
 
 
 
