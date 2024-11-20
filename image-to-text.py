@@ -46,6 +46,8 @@ import numpy as np
 #import fitz  # PyMuPDF
 import pymupdf
 from streamlit_pdf_viewer import pdf_viewer
+from streamlit_themes import set_theme
+
 
 
 
@@ -272,6 +274,8 @@ def setup_ui():
         unsafe_allow_html=True
     )
 
+    set_theme("dark")
+
 
 
 # Function to display the PDF
@@ -424,3 +428,4 @@ def main():
 debug = False
 if __name__ == "__main__":
     main()
+
