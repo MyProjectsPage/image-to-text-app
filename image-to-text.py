@@ -396,7 +396,7 @@ def main():
                 st.title("PDF Viewer")
 
                 # Upload PDF
-                uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
+                #uploaded_file = st.file_uploader("Upload a PDF file", type="pdf")
 
                 # Check if a file is uploaded
                 if uploaded_file:
