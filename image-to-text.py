@@ -386,7 +386,7 @@ def main():
                 
                 with st.expander('Preview'):
                     
-                    test = True
+                    test = False
                     if test == True:
                         uploaded_file.seek(0)
                         base64_pdf = convert_pdf_to_base64(uploaded_file)
