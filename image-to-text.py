@@ -389,11 +389,8 @@ def main():
             # Display the PDF in the left column
             with col1:
                 
-                with st.expander('Preview'):
-                    
-                    test = True
-                    if test == True:
-                        # Check if a file is uploaded
+
+                # Check if a file is uploaded
                         if uploaded_file:
                             # Read the uploaded file
                             pdf_data = uploaded_file.read()
@@ -405,6 +402,13 @@ def main():
                                     height=400,  # Set the height for better viewing
                                     width=600,   # Set the width for better viewing
                                 )
+
+                                
+                with st.expander('Preview'):
+                    
+                    test = True
+                    if test == True:
+                        pass
                     else:
                         # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
                         # FOR PREVIEW ON WINDOWS
