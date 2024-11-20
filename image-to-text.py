@@ -313,18 +313,7 @@ def display_pdf_old(base64_pdf):
     )
 
 
-import streamlit as st
-import base64
-
-def display_pdf(base64_pdf):
-    # Option 1: Use st.download_button
-    st.download_button(
-        label="Download PDF",
-        data=base64.b64decode(base64_pdf),
-        file_name="document.pdf",
-        mime="application/pdf"
-    )
-    
+def display_pdf(base64_pdf):   
     # Option 2: Use iframe with base64
     pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="1000" height="1000" type="application/pdf"></iframe>'
     st.markdown(pdf_display, unsafe_allow_html=True)
