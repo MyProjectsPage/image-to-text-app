@@ -395,7 +395,7 @@ def main():
                     if test == True:
                         pdf_data = uploaded_file.read()
                         # Add an expander to preview the PDF
-                        with st.expander("📄 Preview PDF", expanded=True):
+                        with st.expander("📄 Preview PDF"):
                             pdf_viewer(
                                 pdf_data,
                                 height=50,  # Set the height for better viewing
