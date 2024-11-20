@@ -418,18 +418,18 @@ def main():
             with col2:
                  # Provide a  button for the ZIP file
                 
-                st.write('Progress Report')
-                st.write(f"Total pages in document: {num_pages}")
+                with st.expander('Progress Report'):
+                    st.write(f"Total pages in document: {num_pages}")
 
 
-                st.download_button(
-                    label="Download Extracted Files",
-                    data=zip_file,
-                    file_name=zip_filename,
-                    mime="application/zip"
-                )
-            
-                for filename in filenames: st.write(filename)
+                    st.download_button(
+                        label="Download Extracted Files",
+                        data=zip_file,
+                        file_name=zip_filename,
+                        mime="application/zip"
+                    )
+                
+                    for filename in filenames: st.write(filename)
                     
 
         else:
