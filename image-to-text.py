@@ -384,35 +384,35 @@ def main():
             # Display the PDF in the left column
             with col1:
                 
-                uploaded_file.seek(0)
-                base64_pdf = convert_pdf_to_base64(uploaded_file)
-
-                st.components.v1.iframe(f"data:application/pdf;base64,{base64_pdf}", width=1000, height=1000)
-
-                
-                a = 0
-                if a == 1:
-                    # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
-                    # FOR PREVIEW ON WINDOWS
-                    if os.name == 'nt':
+                with st.expander('Preview'):
+                    
+                    test = True
+                    if test == True:
                         uploaded_file.seek(0)
                         base64_pdf = convert_pdf_to_base64(uploaded_file)
-
-                        st.components.v1.html(
-                        f"""
-                        <embed src="data:application/pdf;base64,{base64_pdf}" 
-                        width="1000" height="1000" type="application/pdf">
-                        """,
-                        height=1000,
-                        )    
-
-                        #display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                        st.components.v1.iframe(f"data:application/pdf;base64,{base64_pdf}", width=1000, height=1000)
                     else:
-                        # Convert PDF to base64 and display it
-                        binary_data = uploaded_file.getvalue() 
-                        st.write('Displaying up to first 15 pages:')
-                        pdf_viewer(input=binary_data, width=800, pages_to_render=list(range(1, 16))) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
-                    
+                        # NOTE: For some reason the embedding of PDF does not work when deployed on the web. However, it works nicely on Windows and it's much better than using pdf_viewer library
+                        # FOR PREVIEW ON WINDOWS
+                        if os.name == 'nt':
+                            uploaded_file.seek(0)
+                            base64_pdf = convert_pdf_to_base64(uploaded_file)
+
+                            st.components.v1.html(
+                            f"""
+                            <embed src="data:application/pdf;base64,{base64_pdf}" 
+                            width="1000" height="1000" type="application/pdf">
+                            """,
+                            height=1000,
+                            )    
+
+                            #display_pdf(base64_pdf) # Works on Windows but does NOT WORK WHEN DEPLOYING ON STREAMLIT COMMUNITY
+                        else:
+                            # Convert PDF to base64 and display it
+                            binary_data = uploaded_file.getvalue() 
+                            st.write('Displaying up to first 15 pages:')
+                            pdf_viewer(input=binary_data, width=800, pages_to_render=list(range(1, 16))) #, rendering= 'legacy_iframe ') # FOR PREVIEW ON THE WEB
+                        
 
             # Display extracted digits in the right column
             with col2:
