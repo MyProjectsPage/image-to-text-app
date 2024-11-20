@@ -398,7 +398,7 @@ def main():
                         with st.expander("📄 Preview PDF", expanded=True):
                             pdf_viewer(
                                 pdf_data,
-                                height=400,  # Set the height for better viewing
+                                height=200,  # Set the height for better viewing
                                 width=1000,   # Set the width for better viewing
                             )
                     else:
