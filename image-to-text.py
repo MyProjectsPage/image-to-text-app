@@ -448,7 +448,7 @@ def main():
         1. Upload a PDF file using the file uploader above.
         2. Once uploaded, the app will process the file and create a ZIP archive.
         3. The ZIP archive will contain separate PDF files for each page of the original document.     
-        4. Click the ' Files' button to  the archive.
+        4. Click the Downlad Files button to download the archive.
         5. The uploaded PDF will be displayed below.
         """)
 
