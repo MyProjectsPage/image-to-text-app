@@ -256,7 +256,6 @@ def setup_ui():
     title = 'Scanned Image To Text (OCR) App'
     st.set_page_config(page_title=title, layout="wide", page_icon=":file_folder:")
     st.markdown('<h1 style="color: limegreen;">' + title + '</h1>', unsafe_allow_html=True)
-    st.markdown('<p style="color: red;">This text is red.</p>', unsafe_allow_html=True)
 
     
     # Add background image
@@ -264,7 +263,7 @@ def setup_ui():
         """
         <style>
         .stApp {
-            color: red; 
+            color: white; 
             background-image: url("https://img.freepik.com/free-vector/abstract-wave-element-design-blue-curve-light-lines-background-digital-frequency-track-equalizer-generative-ai_1423-11938.jpg");
             background-attachment: fixed;
             background-size: cover
