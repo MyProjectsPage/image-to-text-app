@@ -269,7 +269,6 @@ def setup_ui():
         }
         .reportview-container {
             background: rgba(0,0,0,0.5);
-            color: red; /* Default text color */
         }
         .sidebar .sidebar-content {
             background: rgba(0,0,0,0.5);
