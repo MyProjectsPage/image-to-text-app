@@ -9,3 +9,5 @@ reportlab==4.4.3
 Requests==2.32.4
 streamlit==1.37.0
 streamlit_pdf_viewer==0.0.26
+opencv-python-headless
+
